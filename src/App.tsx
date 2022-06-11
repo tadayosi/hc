@@ -1,11 +1,9 @@
 import {
-  EmptyState, EmptyStateIcon, EmptyStateVariant,
-  Nav, NavItem, NavList,
-  Page, PageHeader, PageSection, PageSectionVariants, PageSidebar,
+  EmptyState, Nav, NavItem, NavList,
+  Page, PageHeader, PageSection, PageSidebar,
   Title
 } from '@patternfly/react-core';
 import '@patternfly/react-core/dist/styles/base.css';
-import { CubesIcon } from '@patternfly/react-icons';
 import * as React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
@@ -22,10 +20,9 @@ const App: React.FunctionComponent<AppProps> = () => (
         <Route path='/app2' />
         <Route path='/app3' />
         <Route path='/'>
-          <PageSection variant={PageSectionVariants.light}>
-            <EmptyState variant={EmptyStateVariant.full}>
-              <EmptyStateIcon icon={CubesIcon} />
-              <Title headingLevel="h5" size="lg">Hello, HC!</Title>
+          <PageSection>
+            <EmptyState>
+              <p>Hello, HC!</p>
             </EmptyState>
           </PageSection>
         </Route>

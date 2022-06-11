@@ -25,7 +25,7 @@ const App: React.FunctionComponent<AppProps> = () => (
           <PageSection variant={PageSectionVariants.light}>
             <EmptyState variant={EmptyStateVariant.full}>
               <EmptyStateIcon icon={CubesIcon} />
-              <Title headingLevel="h5" size="lg">Hello!</Title>
+              <Title headingLevel="h5" size="lg">Hello, HC!</Title>
             </EmptyState>
           </PageSection>
         </Route>
@@ -43,8 +43,8 @@ const AppHeader: React.FunctionComponent = () => (
 );
 
 const AppSidebar: React.FunctionComponent = () => (
-  <PageSidebar theme="dark">
-    <Nav theme="dark">
+  <PageSidebar>
+    <Nav>
       <NavList>
         <NavItem itemId={0}>
           <Link to='/app1'>App 1</Link>

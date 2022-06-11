@@ -1,7 +1,7 @@
 import {
-  EmptyState, Nav, NavItem, NavList,
-  Page, PageHeader, PageSection, PageSidebar,
-  Title
+  EmptyState,
+  Nav, NavItem, NavList,
+  Page, PageHeader, PageSection, PageSidebar
 } from '@patternfly/react-core';
 import '@patternfly/react-core/dist/styles/base.css';
 import * as React from 'react';

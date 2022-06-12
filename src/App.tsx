@@ -1,4 +1,5 @@
 import {
+  Brand,
   Nav, NavItem, NavList,
   Page, PageHeader, PageSection, PageSidebar,
   Text, TextContent
@@ -9,13 +10,14 @@ import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom';
 import App1 from './examples/App1';
 import App2 from './examples/App2';
 import App3 from './examples/App3';
+import imgLogo from './logo.svg';
 
 type AppProps = {};
 
 const App: React.FunctionComponent<AppProps> = () => (
   <BrowserRouter>
     <Page
-      header={<PageHeader showNavToggle />}
+      header={<AppHeader />}
       sidebar={<AppSidebar />}
       isManagedSidebar>
       <Switch>
@@ -33,6 +35,14 @@ const App: React.FunctionComponent<AppProps> = () => (
       </Switch>
     </Page>
   </BrowserRouter>
+);
+
+const AppHeader: React.FunctionComponent = () => (
+  <PageHeader
+    logo={<Brand src={imgLogo} alt="HC App" />}
+    logoProps={{ href: '/' }}
+    showNavToggle
+  />
 );
 
 class AppSidebar extends React.Component<{}, { activeItem: number; }> {

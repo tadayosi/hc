@@ -1,14 +1,9 @@
-
 export interface Plugin {
   name: string;
   context: string;
   domain: string;
   scripts: string[];
 }
-
-type Plugins = {
-  [key: string]: Plugin;
-};
 
 const log = console.log;
 
@@ -31,7 +26,7 @@ class PluginLoader {
    * Add an angular module to the list of modules to bootstrap.
    */
   addPlugin(plugin: string): PluginLoader {
-    log("Adding plugin:", plugin);
+    log("Add plugin:", plugin);
     this.plugins.push(plugin);
     return this;
   };

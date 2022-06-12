@@ -38,9 +38,7 @@ const App: React.FunctionComponent<AppProps> = () => (
 class AppSidebar extends React.Component<{}, { activeItem: number; }> {
   constructor(props: {}) {
     super(props);
-    this.state = {
-      activeItem: 0
-    };
+    this.state = { activeItem: 0 };
   }
 
   private onSelect = (result: { itemId: string | number; }) => {

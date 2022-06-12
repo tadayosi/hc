@@ -5,7 +5,7 @@ import {
 } from '@patternfly/react-core';
 import '@patternfly/react-core/dist/styles/base.css';
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom';
 import App1 from './examples/App1';
 import App2 from './examples/App2';
 import App3 from './examples/App3';
@@ -43,27 +43,25 @@ class AppSidebar extends React.Component<{}, { activeItem: number; }> {
     };
   }
 
-  private onSelect(result: { itemId: string | number; }) {
-    console.log('>>>', result);
-    console.log('>>>', typeof result.itemId);
+  private onSelect = (result: { itemId: string | number; }) => {
     if (typeof result.itemId === 'number') {
       this.setState({ activeItem: result.itemId });
     }
-  }
+  };
 
   render() {
     const { activeItem } = this.state;
     const PageNav = (
       <Nav onSelect={this.onSelect}>
         <NavList>
-          <NavItem to='/app1' itemId={0} isActive={activeItem === 0}>
-            App 1
+          <NavItem itemId={0} isActive={activeItem === 0}>
+            <NavLink to='/app1'>App 1</NavLink>
           </NavItem>
-          <NavItem to='/app2' itemId={1} isActive={activeItem === 1}>
-            App 2
+          <NavItem itemId={1} isActive={activeItem === 1}>
+            <NavLink to='/app2'>App 2</NavLink>
           </NavItem>
-          <NavItem to='/app3' itemId={2} isActive={activeItem === 2}>
-            App 3
+          <NavItem itemId={2} isActive={activeItem === 2}>
+            <NavLink to='/app3'>App 3</NavLink>
           </NavItem>
         </NavList>
       </Nav>

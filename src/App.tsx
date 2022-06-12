@@ -6,10 +6,8 @@ import {
 } from '@patternfly/react-core';
 import '@patternfly/react-core/dist/styles/base.css';
 import * as React from 'react';
-import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom';
-import App1 from './examples/App1';
-import App2 from './examples/App2';
-import App3 from './examples/App3';
+import { BrowserRouter, NavLink, Route, Switch, useLocation } from 'react-router-dom';
+import { hc } from './hc';
 import imgLogo from './logo.svg';
 
 type AppProps = {};
@@ -21,9 +19,12 @@ const App: React.FunctionComponent<AppProps> = () => (
       sidebar={<AppSidebar />}
       isManagedSidebar>
       <Switch>
-        <Route path='/app1' component={App1} />
-        <Route path='/app2' component={App2} />
-        <Route path='/app3' component={App3} />
+        {hc.getPlugins().map(plugin => (
+          <Route
+            key={plugin.id}
+            path={plugin.path}
+            component={plugin.component} />
+        ))}
         <Route path='/'>
           <PageSection>
             <TextContent>
@@ -45,37 +46,20 @@ const AppHeader: React.FunctionComponent = () => (
   />
 );
 
-class AppSidebar extends React.Component<{}, { activeItem: number; }> {
-  constructor(props: {}) {
-    super(props);
-    this.state = { activeItem: 0 };
-  }
-
-  private onSelect = (result: { itemId: string | number; }) => {
-    if (typeof result.itemId === 'number') {
-      this.setState({ activeItem: result.itemId });
-    }
-  };
-
-  render() {
-    const { activeItem } = this.state;
-    const PageNav = (
-      <Nav onSelect={this.onSelect}>
-        <NavList>
-          <NavItem itemId={0} isActive={activeItem === 0}>
-            <NavLink to='/app1'>App 1</NavLink>
+const AppSidebar: React.FunctionComponent = () => {
+  const location = useLocation();
+  const PageNav = (
+    <Nav>
+      <NavList>
+        {hc.getPlugins().map(plugin => (
+          <NavItem key={plugin.id} isActive={plugin.path === location.pathname}>
+            <NavLink to={plugin.path}>{plugin.title}</NavLink>
           </NavItem>
-          <NavItem itemId={1} isActive={activeItem === 1}>
-            <NavLink to='/app2'>App 2</NavLink>
-          </NavItem>
-          <NavItem itemId={2} isActive={activeItem === 2}>
-            <NavLink to='/app3'>App 3</NavLink>
-          </NavItem>
-        </NavList>
-      </Nav>
-    );
-    return <PageSidebar nav={PageNav} />;
-  }
-}
+        ))}
+      </NavList>
+    </Nav>
+  );
+  return <PageSidebar nav={PageNav} />;
+};
 
 export default App;

@@ -1,7 +1,7 @@
-import pluginLoader from './plugin-loader';
+import hc from './plugin-loader';
 
 describe('PluginLoader', () => {
   test('test', () => {
-    expect(pluginLoader).not.toBeNull();
+    expect(hc).not.toBeNull();
   });
 });

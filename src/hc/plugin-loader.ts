@@ -1,11 +1,17 @@
 export interface Plugin {
-  name: string;
-  context: string;
-  domain: string;
-  scripts: string[];
+  id: string;
+  title: string;
+  path: string;
+  component: React.ComponentType<any>;
 }
 
-const log = console.log;
+type Plugins = {
+  [id: string]: Plugin;
+};
+
+const log = {
+  info: console.log
+};
 
 /**
  * Plugin loader and discovery mechanism.
@@ -20,14 +26,17 @@ class PluginLoader {
   /**
    * Holds all of the HC plugins that need to be bootstrapped.
    */
-  private plugins: string[] = [];
+  private plugins: Plugins = {};
 
   /**
    * Add an angular module to the list of modules to bootstrap.
    */
-  addPlugin(plugin: string): PluginLoader {
-    log("Add plugin:", plugin);
-    this.plugins.push(plugin);
+  addPlugin(plugin: Plugin): PluginLoader {
+    log.info("Add plugin:", plugin.id);
+    if (this.plugins[plugin.id]) {
+      throw new Error(`Plugin "${plugin.id}" already exists`);
+    }
+    this.plugins[plugin.id] = plugin;
     return this;
   };
 
@@ -35,7 +44,7 @@ class PluginLoader {
    * Add a URL for discovering plugins.
    */
   addUrl(url: string): PluginLoader {
-    log("Adding URL:", url);
+    log.info("Add URL:", url);
     this.urls.push(url);
     return this;
   };
@@ -45,12 +54,20 @@ class PluginLoader {
    *
    * It is invoked from HC's bootstrapping.
    */
-  loadPlugins(callback: (plugins: string[]) => void): void {
+  loadPlugins(callback: (plugins: Plugins) => void): void {
+    log.info("Bootstrapping HC...");
     callback(this.plugins);
+  }
+
+  getPlugins(): Plugin[] {
+    return Object.entries(this.plugins).map(entry => entry[1]);
   }
 
 }
 
+/**
+ * PluginLoader singleton instance.
+ */
 const pluginLoader = new PluginLoader();
 
 export default pluginLoader;

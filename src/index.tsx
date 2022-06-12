@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import bootstrap from './hc/bootstrap';
+import bootstrap from './hc';
+import registerExamples from './examples';
 
 bootstrap();
+registerExamples();
 
 ReactDOM.render(
   <React.StrictMode>

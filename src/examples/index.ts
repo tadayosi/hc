@@ -1,7 +1,7 @@
 import App1 from './App1';
 import App2 from './App2';
 import App3 from './App3';
-import hc from '../hc/plugin-loader';
+import { hc } from '../hc';
 
 function registerExamples() {
   hc
